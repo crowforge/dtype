@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center|center"
+    android:background="#C0C0C0"
+    android:foregroundGravity="center" >
+	
+	<Button
+		    android:id="@+id/button_so"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center|top"
+		    android:autoLink="web"
+		    android:clickable="true"
+		    android:linksClickable="true"
+		    android:onClick="ClearText"
+		    android:text="Clear" 
+		    android:layout_margin="2.5dp"
+		    android:background="@drawable/grey_button_layout" />
+	
+	<LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        >
+        
+<!-- MENU: TOP ROW -->
+	    <LinearLayout
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        android:layout_gravity="center"
+	         >
+	         
+<!-- Grey Theme Button -->	
+	        <Button
+	            android:id="@+id/BtThemeGrey"
+	            android:layout_width="50dp"
+	            android:layout_height="50dp"
+	            android:clickable="true"
+	            android:linksClickable="true"
+	            android:onClick="ChThemeGrey"
+	            android:background="@drawable/grey_button_layout"
+	            android:text="a"
+	            android:textSize="25sp"
+        		android:typeface="sans"
+        		android:shadowColor="#9A9A9A"
+        		android:shadowDx="0.6"
+        		android:shadowDy="0.6"
+        		android:shadowRadius="0.5"
+        		android:layout_margin="1.5dp" />
+	        
+<!-- Blue Theme Button -->	
+	        <Button
+	            android:id="@+id/BtThemeBlue"
+	            android:layout_width="50dp"
+	            android:layout_height="50dp"
+	            android:autoLink="web"
+	            android:clickable="true"
+	            android:linksClickable="true"
+	            android:onClick="ChThemeBlue"
+	            android:background="@drawable/blue_button_layout"
+	            android:text="a"
+	            android:textSize="25sp"
+        		android:shadowColor="#22548D"
+        		android:shadowDx="0.6"
+        		android:shadowDy="0.6"
+        		android:shadowRadius="0.5"
+        		android:textColor="#FFFFFF"
+        		android:typeface="sans"
+        		android:layout_margin="1.5dp" />
+	        
+<!-- Dark Theme Button -->
+	        <Button
+	            android:id="@+id/BtThemeDark"
+	            android:layout_width="50dp"
+	            android:layout_height="50dp"
+	            android:autoLink="web"
+	            android:clickable="true"
+	            android:linksClickable="true"
+	            android:onClick="ChThemeDark"
+	            android:background="@drawable/dark_button_layout"
+	            android:text="a"
+	            android:textSize="25sp"
+        		android:shadowColor="#393939"
+        		android:shadowDx="0.6"
+        		android:shadowDy="0.6"
+        		android:shadowRadius="0.5"
+        		android:textColor="#CCCCCC"
+        		android:typeface="sans"
+        		android:layout_margin="1.5dp" />
+	    </LinearLayout>
+
+<!-- MENU: MIDDLE ROW -->
+	    <LinearLayout
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        android:layout_gravity="center"
+	        >
+
+<!-- Font Sans Button -->
+	        <Button
+	            android:id="@+id/BtFontSans"
+	            android:layout_width="50dp"
+	            android:layout_height="50dp"
+	            android:autoLink="web"
+	            android:clickable="true"
+	            android:linksClickable="true"
+	            android:onClick="ChFontSans"
+	            android:background="@drawable/grey_button_layout"
+	            android:text="a"
+	            android:textSize="25sp"
+        		android:shadowColor="#9A9A9A"
+        		android:shadowDx="0.6"
+        		android:shadowDy="0.6"
+        		android:shadowRadius="0.5"
+        		android:typeface="sans"
+        		android:layout_margin="1.5dp" />
+	        
+<!-- Font Serif Button -->
+	        <Button
+	            android:id="@+id/BtFontSerif"
+	            android:layout_width="50dp"
+	            android:layout_height="50dp"
+	            android:autoLink="web"
+	            android:clickable="true"
+	            android:linksClickable="true"
+	            android:onClick="ChFontSerif"
+	            android:background="@drawable/grey_button_layout"
+	            android:text="a"
+	            android:textSize="25sp"
+        		android:shadowColor="#9A9A9A"
+        		android:shadowDx="0.6"
+        		android:shadowDy="0.6"
+        		android:shadowRadius="0.5"    
+        		android:typeface="serif"
+        		android:layout_margin="1.5dp" />
+
+<!-- Font Mono Button -->
+	        <Button
+	            android:id="@+id/BtFontMono"
+	            android:layout_width="50dp"
+	            android:layout_height="50dp"
+	            android:autoLink="web"
+	            android:clickable="true"
+	            android:linksClickable="true"
+	            android:onClick="ChFontMono"
+	            android:background="@drawable/grey_button_layout"
+	            android:text="a"
+	            android:textSize="25sp"
+        		android:shadowColor="#9A9A9A"
+        		android:shadowDx="0.6"
+        		android:shadowDy="0.6"
+        		android:shadowRadius="0.5"
+        		android:typeface="monospace"
+        		android:layout_margin="1.5dp" />
+	    </LinearLayout>
+	    
+<!-- MENU: BOTTOM ROW -->
+	    <LinearLayout
+	        android:layout_width="wrap_content"
+	 		android:layout_height="55dp"
+	        android:orientation="horizontal"
+	        android:layout_gravity="center">
+
+<!-- Size Small Button -->
+	        <Button
+	            android:id="@+id/BtSizeSmall"
+	            android:layout_width="50dp"
+	            android:layout_height="50dp"
+	            android:autoLink="web"
+	            android:clickable="true"
+	            android:linksClickable="true"
+	            android:onClick="ChSizeSmall"
+	            android:background="@drawable/grey_button_layout"
+	            android:text="a"
+	            android:textSize="13sp"
+        		android:shadowColor="#9A9A9A"
+        		android:shadowDx="0.6"
+        		android:shadowDy="0.6"
+        		android:shadowRadius="0.5"
+        		android:typeface="sans"
+        		android:layout_margin="1.5dp"
+        		android:layout_weight="1"
+        		android:layout_gravity="center_vertical" />
+	        
+<!-- Size Medium Button -->
+	        <Button
+	            android:id="@+id/BtSizeMid"
+	            android:layout_width="50dp"
+	            android:layout_height="50dp"
+	            android:autoLink="web"
+	            android:clickable="true"
+	            android:linksClickable="true"
+	            android:onClick="ChSizeMid"
+	            android:background="@drawable/grey_button_layout"
+	            android:text="a"
+	            android:textSize="22sp"
+        		android:shadowColor="#9A9A9A"
+        		android:shadowDx="0.6"
+        		android:shadowDy="0.6"
+        		android:shadowRadius="0.5"
+        		android:typeface="sans"
+        		android:layout_margin="1.5dp"
+        		android:layout_weight="1"
+        		android:layout_gravity="center_vertical" />
+
+<!-- Size Big Button -->
+	        <Button
+	            android:id="@+id/BtSizeBig"
+	            android:layout_width="50dp"
+	            android:layout_height="50dp"
+	            android:autoLink="web"
+	            android:clickable="true"
+	            android:linksClickable="true"
+	            android:onClick="ChSizeBig"
+	            android:background="@drawable/grey_button_layout"
+	            android:text="a"
+	            android:textSize="28sp"
+        		android:shadowColor="#9A9A9A"
+        		android:shadowDx="0.6"
+        		android:shadowDy="0.6"
+        		android:shadowRadius="0.5"    
+        		android:typeface="sans"
+        		android:layout_margin="1.5dp"
+        		android:layout_weight="1"
+        		android:layout_gravity="center_vertical" />
+	    </LinearLayout>
+
+	</LinearLayout>
+		<Button
+		    android:id="@+id/button_so"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center|bottom"
+		    android:autoLink="web"
+		    android:clickable="true"
+		    android:linksClickable="true"
+		    android:onClick="AddBug"
+		    android:text="Report a Bug" 
+		    android:layout_margin="2.5dp"
+		    android:background="@drawable/grey_button_layout"/>
+
+</FrameLayout>

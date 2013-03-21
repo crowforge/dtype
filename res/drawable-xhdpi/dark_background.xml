@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+		<bitmap
+			android:src="@drawable/noise"
+			android:width="5px"
+			android:height="5px"
+			android:tileMode="repeat" />
+	</item>
+	<item>
+	    <shape>
+	    	<gradient
+                android:startColor="#F7474747"
+                android:endColor="#F7393939"
+	        	android:angle="270" />
+    	</shape>
+    </item>
+</layer-list>
