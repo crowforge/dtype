@@ -6,6 +6,7 @@
     <string name="clear_button">Clear</string>
     <string name="a">a</string>
     <string name="report">Report a Bug</string>
+    <string name="copyright">Copyright 2013, Vsevolod Glumov</string>
 
 </resources>
 
