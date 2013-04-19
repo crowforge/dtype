@@ -3,7 +3,6 @@ package net.wswld.dtype.writer;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -32,7 +31,7 @@ public class DTypeActivity extends Activity {
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_DITHER);
         /** 
          * Reliable Input Preservation
-         * Preserves/writes the copy of inputed text into the built-in db
+         * Preserves/writes the copy of inputed text into the built-in db.
          * TD: Possibly it could be a separate void/function. 
          */
         SharedPreferences prefs = getSharedPreferences("com.dtype.writer", MODE_PRIVATE);
@@ -213,7 +212,7 @@ public class DTypeActivity extends Activity {
     	final View main_view = (View) findViewById(R.id.mainview);	
 		main_view.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_background));
 		edit_text.getBackground().setAlpha(0);
-		edit_text.setTextColor(Color.parseColor("#000000"));
+		edit_text.setTextColor(getResources().getColor(R.color.DrText));
 		
     }
 
@@ -226,7 +225,7 @@ public class DTypeActivity extends Activity {
     	final View main_view = (View) findViewById(R.id.mainview);	
 		main_view.setBackgroundDrawable(getResources().getDrawable(R.drawable.blue_background));
 		edit_text.getBackground().setAlpha(0);
-		edit_text.setTextColor(Color.parseColor("#FFFFFF"));
+		edit_text.setTextColor(getResources().getColor(R.color.LtText));
 
     }
 
@@ -239,7 +238,7 @@ public class DTypeActivity extends Activity {
     	final View main_view = (View) findViewById(R.id.mainview);	
 		main_view.setBackgroundDrawable(getResources().getDrawable(R.drawable.dark_background));
 		edit_text.getBackground().setAlpha(0);
-		edit_text.setTextColor(Color.parseColor("#CCCCCC"));
+		edit_text.setTextColor(getResources().getColor(R.color.MdText));
 
     } 
    
