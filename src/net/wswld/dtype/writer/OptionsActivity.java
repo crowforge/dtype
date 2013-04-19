@@ -97,7 +97,7 @@ public class OptionsActivity extends DTypeActivity {
     
 	/** Going to the AddBug page*/
     public void AddBug (View view) {
-        goToUrl ( "https://bitbucket.org/wswld/dtype/issues/new");
+        goToUrl ( "https://github.com/wswld/dtype/issues/new");
     };
     
     /**

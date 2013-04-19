@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.wswld.dtype.writer"
-    android:versionCode="057"
+    android:versionCode="058"
     android:versionName="@string/version" >
 
     <uses-sdk android:minSdkVersion="7" android:maxSdkVersion="15" android:targetSdkVersion="7"/>
