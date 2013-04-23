@@ -46,44 +46,7 @@ public class DTypeActivity extends Activity {
 		Font = prefs.getInt("font", Font);
 		Size = prefs.getInt("size", Size);
 		
-		/** Applying the saved Theme values.*/
-		switch(Theme){
-		case 1:
-			SetThemeLight (this);
-		break;
-		case 2:
-			SetThemeBlue (this);		
-		break;
-		case 3:
-			SetThemeDark (this);
-		break;
-		}
-		
-		/** Applying the saved Font values.*/
-		switch(Font){
-		case 1:
-			SetFontSans (this);
-		break;
-		case 2:
-			SetFontSerif (this);		
-		break;
-		case 3:
-			SetFontMono (this);
-		break;
-		}
-		
-		/** Applying the saved Size values.*/
-		switch(Size){
-		case 1:
-			SetSizeSm (this);
-		break;
-		case 2:
-			SetSizeMd (this);		
-		break;
-		case 3:
-			SetSizeBg (this);
-		break;
-		}
+		SetApplicableStyle(this, Theme, Font, Size); 
         
 		/** 
 		 * Done Button 
@@ -143,44 +106,7 @@ public class DTypeActivity extends Activity {
 			Font = prefs.getInt("font", Font);
 			Size = prefs.getInt("size", Size);
 			
-			/** Setting the theme */
-			switch(Theme){
-			case 1:
-				SetThemeLight (this);
-			break;
-			case 2:
-				SetThemeBlue (this);		
-			break;
-			case 3:
-				SetThemeDark (this);
-			break;
-			}
-			
-			/** Setting the font */
-			switch(Font){
-			case 1:
-				SetFontSans (this);
-			break;
-			case 2:
-				SetFontSerif (this);		
-			break;
-			case 3:
-				SetFontMono (this);
-			break;
-			}
-			
-			/** Setting the size */
-			switch(Size){
-			case 1:
-				SetSizeSm (this);
-			break;
-			case 2:
-				SetSizeMd (this);		
-			break;
-			case 3:
-				SetSizeBg (this);
-			break;
-			}
+			SetApplicableStyle(this, Theme, Font, Size);
 			
 			/** Setting opt_changed to false. */
 			SharedPreferences.Editor editor = prefs.edit();
@@ -202,7 +128,53 @@ public class DTypeActivity extends Activity {
 		}
 
     };
+    
 
+    public void SetApplicableStyle (DTypeActivity dTypeActivity, int Theme, int Font, int Size) {
+    	// Retrieving the EditText and the View as objects
+    	final EditText edit_text = (EditText) findViewById(R.id.editText1);
+    	final View main_view = (View) findViewById(R.id.mainview);
+		
+    	// Setting the theme
+		switch(Theme){
+		case 1:
+			SetThemeLight (this);
+		break;
+		case 2:
+			SetThemeBlue (this);		
+		break;
+		case 3:
+			SetThemeDark (this);
+		break;
+		}
+		
+		// Setting the font
+		switch(Font){
+		case 1:
+			SetFontSans (this);
+		break;
+		case 2:
+			SetFontSerif (this);		
+		break;
+		case 3:
+			SetFontMono (this);
+		break;
+		}
+		
+		// Setting the size
+		switch(Size){
+		case 1:
+			SetSizeSm (this);
+		break;
+		case 2:
+			SetSizeMd (this);		
+		break;
+		case 3:
+			SetSizeBg (this);
+		break;
+		}
+    }
+    
     /**
      * Setting theme to light.
      * @param dTypeActivity
