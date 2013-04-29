@@ -14,5 +14,6 @@
     <color name="LtText">#FFFFFF</color>
     <color name="MdText">#CCCCCC</color>
     <color name="DrText">#000000</color>
+    <color name="Shade">#C0FFFFFF</color>
 </resources>
 

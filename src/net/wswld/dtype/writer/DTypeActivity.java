@@ -9,6 +9,9 @@ import android.content.SharedPreferences;
 import android.graphics.PixelFormat;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.Layout;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -42,9 +45,29 @@ public class DTypeActivity extends Activity {
          * Preserves/writes the copy of inputed text into the built-in db.
          * TD: Possibly it could be a separate void/function. 
          */
+		final TextView wordCount = (TextView) findViewById(R.id.counterView);
+		final EditText edit_text = (EditText) findViewById(R.id.editText1);
+		
+        final TextWatcher textWatcher = new TextWatcher() {
+        	@Override
+            public void onTextChanged(CharSequence s, int start, int before, int count){
+        		wordCount.setText(String.valueOf(s.length()) + "/" + countWords(s.toString()));
+        	}
+            
+        	@Override
+            public void afterTextChanged(Editable s) {}
+        	
+        	@Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after){}
+        };
+        
+        edit_text.addTextChangedListener(textWatcher); 
+
         SharedPreferences prefs = getSharedPreferences("com.dtype.writer", MODE_PRIVATE);
-        final EditText edit_text = (EditText) findViewById(R.id.editText1);
-		edit_text.setText(prefs.getString("doutput_preserved", null), TextView.BufferType.EDITABLE);		
+        
+        edit_text.removeTextChangedListener(textWatcher); 
+		edit_text.setText(prefs.getString("doutput_preserved", null), TextView.BufferType.EDITABLE);
+		edit_text.addTextChangedListener(textWatcher); 
         
 		/** Getting the saved values for all the visual options.*/
 		int Theme = 1; // Default color theme is grey.
@@ -73,8 +96,9 @@ public class DTypeActivity extends Activity {
             }
         });
         
+    	};
         
-    };
+    
     
     /**
      * This is the main method for theme assembly, it accepts the keys and returns the theme instance.
@@ -99,9 +123,9 @@ public class DTypeActivity extends Activity {
         
         //Matching the theme key to the instance of the theme + inserting the previously acquired parameters.
         Map<Integer, MyTheme> themes = new HashMap<Integer, MyTheme>();
-        themes.put(1, new MyTheme(R.drawable.grey_background, 0, R.color.DrText, fonts.get(font), sizes.get(size)));
-        themes.put(2, new MyTheme(R.drawable.blue_background, 0, R.color.LtText, fonts.get(font), sizes.get(size)));
-        themes.put(3, new MyTheme(R.drawable.dark_background, 0, R.color.MdText, fonts.get(font), sizes.get(size)));
+        themes.put(1, new MyTheme(R.drawable.grey_background, 0, R.color.DrText, R.color.MdGrey, fonts.get(font), sizes.get(size)));
+        themes.put(2, new MyTheme(R.drawable.blue_background, 0, R.color.LtText, R.color.MdBlue, fonts.get(font), sizes.get(size)));
+        themes.put(3, new MyTheme(R.drawable.dark_background, 0, R.color.MdText, R.color.MdDark, fonts.get(font), sizes.get(size)));
         
         return themes.get(theme);
     }
@@ -117,10 +141,10 @@ public class DTypeActivity extends Activity {
          * splash is shown on update.
          */
         SharedPreferences prefs = getSharedPreferences("com.dtype.writer", MODE_PRIVATE);
-		if (prefs.getBoolean("firstrun059", true)) {
+		if (prefs.getBoolean("firstrun060", true)) {
 								           
 		           SharedPreferences.Editor editor = prefs.edit();
-		           editor.putBoolean("firstrun059", false);
+		           editor.putBoolean("firstrun060", false);
 		           editor.commit(); // apply changes
 
 		           Intent Splash = new Intent(this, IntroSplashActivity.class);
@@ -158,6 +182,7 @@ public class DTypeActivity extends Activity {
 		if (prefs.getBoolean("cleared", true)) {
 			
 			/** Clearing the preserved text */
+			
 	        final EditText edit_text = (EditText) findViewById(R.id.editText1);
 			edit_text.setText(prefs.getString("doutput_preserved", null), TextView.BufferType.EDITABLE);
 			
@@ -172,9 +197,11 @@ public class DTypeActivity extends Activity {
     public void setTheme(DTypeActivity dTypeActivity, MyTheme theme) {
     	final EditText edit_text = (EditText) findViewById(R.id.editText1);
         final View main_view = (View) findViewById(R.id.mainview);
+        final TextView wordCounter = (TextView) findViewById(R.id.counterView);
         main_view.setBackgroundDrawable(getResources().getDrawable(theme.background));
 		edit_text.getBackground().setAlpha(theme.alpha);
 		edit_text.setTextColor(getResources().getColor(theme.color));
+		wordCounter.setTextColor(getResources().getColor(theme.colorShade));
 		edit_text.setTypeface(theme.font);
 		edit_text.setTextSize(theme.size);
     }
@@ -208,5 +235,26 @@ public class DTypeActivity extends Activity {
         };
 		return true;
     };
+    
+    public static int countWords(String string){
+        int counter = 0;
+        boolean word = false;
+        int endOfLine = string.length() - 1;
+
+        for (int i = 0; i < string.length(); i++) {
+
+            if (Character.isLetter(string.charAt(i)) == true && i != endOfLine) {
+                word = true;
+
+            } else if (Character.isLetter(string.charAt(i)) == false && word == true) {
+                counter++;
+                word = false;
+                
+            } else if (Character.isLetter(string.charAt(i)) && i == endOfLine) {
+                counter++;
+            }
+        }
+        return counter;
+    }
     
 }
