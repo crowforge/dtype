@@ -141,10 +141,10 @@ public class DTypeActivity extends Activity {
          * splash is shown on update.
          */
         SharedPreferences prefs = getSharedPreferences("com.dtype.writer", MODE_PRIVATE);
-		if (prefs.getBoolean("firstrun060", true)) {
+		if (prefs.getBoolean("firstrun61", true)) {
 								           
 		           SharedPreferences.Editor editor = prefs.edit();
-		           editor.putBoolean("firstrun060", false);
+		           editor.putBoolean("firstrun61", false);
 		           editor.commit(); // apply changes
 
 		           Intent Splash = new Intent(this, IntroSplashActivity.class);
