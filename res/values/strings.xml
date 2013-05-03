@@ -2,6 +2,12 @@
 <resources>
 
     <string name="app_name">dType</string>
+    <string name="version">0.61</string>
+    <string name="clear_button">Clear</string>
+    <string name="a">a</string>
+    <string name="report">Report a Bug</string>
+    <string name="copyright">Copyright 2013, Vsevolod Glumov</string>
+    <string name="words">0</string>
 
 </resources>
 
