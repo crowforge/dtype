@@ -26,8 +26,12 @@ import net.wswld.dtype.writer.MyTheme;
  * Yes, I know, that this code can be much more compact. I'working on that.
  */
 /**
- * @author vsevolod
- *
+ * @author wswld
+ * This is basically the main activity of the app.
+ * 
+ * It revolves mainly around editText and the doneButton.
+ * 
+ * It also has a mechanism for assembling and applying a theme.
  */
 public class DTypeActivity extends Activity {
     @Override
