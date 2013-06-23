@@ -10,7 +10,8 @@
     <color name="MdBlue">#F722548D</color>
     <color name="DrBlue">#193F6A</color>
     <color name="DrStroke">#242424</color>
-    <color name="LtStroke">#FF9900</color>
+    <color name="MdStroke">#C9AC81</color>
+    <color name="LtStroke">#FFCC00</color>
     <color name="LtText">#FFFFFF</color>
     <color name="MdText">#CCCCCC</color>
     <color name="DrText">#000000</color>
