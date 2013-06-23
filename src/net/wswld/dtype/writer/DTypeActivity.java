@@ -21,33 +21,57 @@ import android.widget.TextView;
 import net.wswld.dtype.writer.MyTheme;
 
 /**
- * dType Main Activity (main)
- * @author vsevolod
- * Yes, I know, that this code can be much more compact. I'working on that.
- */
-/**
- * @author vsevolod
- *
+ * <h1>dType Main Activity</h1>
+ * This is the main activity of the app, where all the magic happens.
+ * {@link #onCreate(android.os.Bundle) onCreate()} and {@link #onResume()} methods are the generic
+ * Android methods and contain all the necessary code to get the main screen running. I know that
+ * all this code could be a little more compact. I'm working on that.<br /><br />
+ * Other methods are called by these two or on some event. These include:<ol>
+ *     <li>{@link #assembleTheme(int, int, int)} matches the <code>font</code>,
+ *     <code>theme</code> and <code>size</code> values retrieved from the database to the actual
+ *     values and objects (<code>Typeface</code>) and returns the {@link MyTheme} object. This
+ *     theme object is then processed by {@link #setTheme(DTypeActivity, MyTheme)} within
+ *     {@link #onCreate(android.os.Bundle) onCreate()} and {@link #onResume()} methods and its
+ *     properties are applied to the activity.</li>
+ *     <li>{@link #setTheme(DTypeActivity, MyTheme)} is the method that applies a theme object to
+ *     the main activity.</li>
+ *     <li>{@link #onKeyDown(int, android.view.KeyEvent)} processes the events that happen on
+ *     button pressed. In particular it launches the {@link OptionsActivity} activity on
+ *     <code>menu</code> button pressed and exits on <code>back</code> button pressed. Pretty
+ *     straight-forward stuff. However it also performs saving the contains of the
+ *     <code>EditText</code> field on exit.</li>
+ *     <li>{@link #countWords(String)} does word counting. The counter is applied to the
+ *     <code>TextView</code> in overridden <code>onTextChanged</code> within
+ *     {@link #onCreate(android.os.Bundle) onCreate()}.</li>
+ * </ol>
  */
 public class DTypeActivity extends Activity {
+    /**
+     * Generic Android <code>onCreate</code> method. Contains the lion share of runtime code.
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        /**
+        /*
          * Enabling dithering for the whole window to ensure gradients shown right later.
          */
 		getWindow().setFormat(PixelFormat.RGBA_8888);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_DITHER);
-        /** 
-         * Reliable Input Preservation
+
+        /*
          * Preserves/writes the copy of inputed text into the built-in db.
          * TD: Possibly it could be a separate void/function. 
          */
 		final TextView wordCount = (TextView) findViewById(R.id.counterView);
 		final EditText edit_text = (EditText) findViewById(R.id.editText1);
-		
+
+        /*
+         * TextWatcher instance with overridden onTextChanged to apply word/symbol counters to the
+         * corresponding textViews every time the EditText value has changed.
+         */
         final TextWatcher textWatcher = new TextWatcher() {
         	@Override
             public void onTextChanged(CharSequence s, int start, int before, int count){
@@ -63,26 +87,25 @@ public class DTypeActivity extends Activity {
         
         edit_text.addTextChangedListener(textWatcher); 
 
+        // Getting the preserved value for EditText from the DB
         SharedPreferences prefs = getSharedPreferences("com.dtype.writer", MODE_PRIVATE);
-        
+        // Applying the preserved value to EditText
         edit_text.removeTextChangedListener(textWatcher); 
 		edit_text.setText(prefs.getString("doutput_preserved", null), TextView.BufferType.EDITABLE);
 		edit_text.addTextChangedListener(textWatcher); 
         
-		/** Getting the saved values for all the visual options.*/
+		// Getting the preserved values for all the visual options from the DB
 		int Theme = 1; // Default color theme is grey.
 		int Font = 2; // Default font is serif.
 		int Size = 2; // Default size is 17.
 		Theme = prefs.getInt("theme", Theme);
 		Font = prefs.getInt("font", Font);
 		Size = prefs.getInt("size", Size);
-		
+
+        // Assembling and applying the theme
 		setTheme(this, assembleTheme(Theme, Font, Size)); 
-        
-		/** 
-		 * Done Button 
-		 * This is the Done button code. 
-		 */
+
+		// This is the Done button code. It performs the export of the EditText output.
         final Button button = (Button) findViewById(R.id.button1);
         button.getBackground().setAlpha(117);
         button.setOnClickListener(new View.OnClickListener() {
@@ -101,11 +124,13 @@ public class DTypeActivity extends Activity {
     
     
     /**
-     * This is the main method for theme assembly, it accepts the keys and returns the theme instance.
-     * @param theme Theme key.
-     * @param font Font key.
-     * @param size Size key.
-     * @return
+     * This method matches the <code>font</code>, <code>theme</code> and <code>size</code> values
+     * retrieved from the database to the actual values and objects (<code>Typeface</code>) and
+     * returns the {@link MyTheme} object.
+     * @param theme Theme value.
+     * @param font Font value.
+     * @param size Size value.
+     * @return {@link MyTheme} instance with the corresponding parameters.
      */
     public MyTheme assembleTheme(int theme, int font, int size) {
     	
@@ -129,41 +154,36 @@ public class DTypeActivity extends Activity {
         
         return themes.get(theme);
     }
-    
+
+    /**
+     * Generic Android <code>onResume</code> method. Contains the lion share of runtime code.
+     */
     @Override
     public void onResume() {
         super.onResume();
- //       setContentView(R.layout.main);
-        
-        /**
+        /*
          * Checking, whether the splash should be shown (only on first run).
          * "firstrun056" boolean name is changed on every new version to ensure, that the
          * splash is shown on update.
          */
         SharedPreferences prefs = getSharedPreferences("com.dtype.writer", MODE_PRIVATE);
-		if (prefs.getBoolean("firstrun61", true)) {
+		if (prefs.getBoolean("firstrun66", true)) {
 								           
 		           SharedPreferences.Editor editor = prefs.edit();
-		           editor.putBoolean("firstrun61", false);
+		           editor.putBoolean("firstrun66", false);
 		           editor.commit(); // apply changes
 
 		           Intent Splash = new Intent(this, IntroSplashActivity.class);
 		           startActivity (Splash);        
 		};
-		
-		//final EditText edit_text = (EditText) findViewById(R.id.editText1);
-		
-		/**
-		 * Declaring style variables + defaults.
-		 */
+
+		// Declaring style variables + defaults.
 		int Theme = 1;
 		int Font = 1;
 		int Size = 1;
 		
-		/**
-		 * Checking whether anything has changed in stored theme options.
-		 * Note that this is onReturn after the Opt. 
-		 * Possibly getting vars and setting them should be a separate void.
+		/*
+		 * Checking whether anything has changed in stored theme, size or font values.
 		 */
 		if (prefs.getBoolean("opt_changed", true)) {
 			Theme = prefs.getInt("theme", Theme);
@@ -172,28 +192,32 @@ public class DTypeActivity extends Activity {
 			
 			setTheme(this, assembleTheme(Theme, Font, Size));
 			
-			/** Setting opt_changed to false. */
+			// Setting opt_changed to false.
 			SharedPreferences.Editor editor = prefs.edit();
 			editor.putBoolean("opt_changed", false);
 	        editor.commit(); // apply changes
 		}
 		
-		/** Checking on the state of cleared boolean **/
+		// Checking on the state of cleared boolean
 		if (prefs.getBoolean("cleared", true)) {
 			
-			/** Clearing the preserved text */
-			
+			// Clearing the preserved text
 	        final EditText edit_text = (EditText) findViewById(R.id.editText1);
 			edit_text.setText(prefs.getString("doutput_preserved", null), TextView.BufferType.EDITABLE);
 			
-			/** Setting cleared to false. */
+			// Setting cleared to false.
 			SharedPreferences.Editor editor = prefs.edit();
 			editor.putBoolean("cleared", false);
 	        editor.commit(); // apply changes
 		}
 
     };
-    
+
+    /**
+     * This is the method that applies a {@link MyTheme} object to the main activity.
+     * @param dTypeActivity main activity.
+     * @param theme {@link MyTheme} object.
+     */
     public void setTheme(DTypeActivity dTypeActivity, MyTheme theme) {
     	final EditText edit_text = (EditText) findViewById(R.id.editText1);
         final View main_view = (View) findViewById(R.id.mainview);
@@ -205,24 +229,29 @@ public class DTypeActivity extends Activity {
 		edit_text.setTypeface(theme.font);
 		edit_text.setTextSize(theme.size);
     }
-  
+
     /**
-     * OnKeyDown events.
+     * Pretty generic Android <code>onKeyDown</code> method. It processes the events that happen on
+     * button pressed. In particular it launches the {@link OptionsActivity} activity on
+     * <code>menu</code> button pressed and exits on <code>back</code> button pressed. Pretty
+     * straight-forward stuff. However it also performs saving the contains of the
+     * <code>EditText</code> field on exit.
+     * @param keyCode key code.
+     * @param event key event.
+     * @return <code>true</code>, always <code>true</code>.
      */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-    
-    	/**
-    	 * Accessing Opt on 'menu' keypress.
-    	 */
+
+    	// Accessing Opt on 'menu' keypress.
         if (keyCode == KeyEvent.KEYCODE_MENU) {
 	    	Intent opt = new Intent(this, OptionsActivity.class);
 	        startActivity (opt);
         };
-        
-        /**
+
+        /*
          * Explicit minimize on 'back' keystroke.
-         * Note that output gets written to the db.
+         * Note that output gets written to the DB.
          */
         if (keyCode == KeyEvent.KEYCODE_BACK) {
         	SharedPreferences prefs = getSharedPreferences("com.dtype.writer", MODE_PRIVATE);
@@ -235,7 +264,12 @@ public class DTypeActivity extends Activity {
         };
 		return true;
     };
-    
+
+    /**
+     * This is the method, where all the magic with word counting happens.
+     * @param string the input string.
+     * @return Number of words.
+     */
     public static int countWords(String string){
         int counter = 0;
         boolean word = false;
