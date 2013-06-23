@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">dType</string>
-    <string name="version">0.62</string>
+    <string name="version">0.64</string>
     <string name="clear_button">Clear</string>
     <string name="a">a</string>
     <string name="report">Report a Bug</string>

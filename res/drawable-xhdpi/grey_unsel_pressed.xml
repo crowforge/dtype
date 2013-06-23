@@ -11,7 +11,7 @@
                 android:width="2dp"
                 android:color="@color/MdGrey" />
         <corners
-                android:radius="3dp" />
+                android:radius="4dp" />
         <padding
                 android:left="2dp"
                 android:top="2dp"
