@@ -94,147 +94,105 @@ public class OptionsActivity extends DTypeActivity {
         };
         return true;
     }
-    
+
+    public void changeTheme(View v) {
+
+        SharedPreferences prefs = getSharedPreferences("com.dtype.writer", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+
+        int Theme = 0;
+
+        switch (v.getId()) {
+            case (R.id.BtThemeGrey):
+                Theme = 1;
+                SelectThemeGrey(this);
+                break;
+            case (R.id.BtThemeBlue):
+                Theme = 2;
+                SelectThemeBlue(this);
+                break;
+            case (R.id.BtThemeDark):
+                Theme = 3;
+                SelectThemeDark(this);
+                break;
+        }
+
+        editor.putInt("theme", Theme);
+        editor.putBoolean("opt_changed", true);
+        editor.commit(); // apply changes
+    }
+
+    public void changeFont(View v) {
+
+        SharedPreferences prefs = getSharedPreferences("com.dtype.writer", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+
+        int Font = 0;
+
+        switch (v.getId()) {
+            case (R.id.BtFontSans):
+                Font = 1;
+                SelectFontSans(this);
+                break;
+            case (R.id.BtFontSerif):
+                Font = 2;
+                SelectFontSerif(this);
+                break;
+            case (R.id.BtFontMono):
+                Font = 3;
+                SelectFontMono(this);
+                break;
+        }
+
+        editor.putInt("font", Font);
+        editor.putBoolean("opt_changed", true);
+        editor.commit(); // apply changes
+    }
+
+    public void changeSize(View v) {
+
+        SharedPreferences prefs = getSharedPreferences("com.dtype.writer", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+
+        int Size = 0;
+
+        switch (v.getId()) {
+            case (R.id.BtSizeSmall):
+                Size = 1;
+                SelectSizeSmall(this);
+                break;
+            case (R.id.BtSizeMid):
+                Size = 2;
+                SelectSizeMid(this);
+                break;
+            case (R.id.BtSizeBig):
+                Size = 3;
+                SelectSizeBig(this);
+                break;
+        }
+
+        editor.putInt("size", Size);
+        editor.putBoolean("opt_changed", true);
+        editor.commit(); // apply changes
+    }
+
 	/** Going to the AddBug page*/
     public void AddBug (View view) {
         goToUrl ( "https://github.com/wswld/dtype/issues/new");
     };
-    
-    /**
-     * Change theme to grey.
-     */
-    public void ChThemeGrey (View view) {
-    	int Theme = 1;
-    	SharedPreferences prefs = getSharedPreferences("com.dtype.writer", MODE_PRIVATE);
-    	SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt("theme", Theme);
-        editor.commit(); // apply changes
-        
-		editor.putBoolean("opt_changed", true);
-        editor.commit(); // apply changes
-        SelectThemeGrey (this);
-    }
-    
-    /**
-     * Change theme to blue.
-     */
-    public void ChThemeBlue (View view) {
-    	int Theme = 2;
-    	SharedPreferences prefs = getSharedPreferences("com.dtype.writer", MODE_PRIVATE);
-    	SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt("theme", Theme);
-        editor.commit(); // apply changes
-        
-		editor.putBoolean("opt_changed", true);
-        editor.commit(); // apply changes
-        SelectThemeBlue (this);
-    }
-    
-    /**
-     * Change theme to dark.
-     */
-    public void ChThemeDark (View view) {
-    	int Theme = 3;
-    	SharedPreferences prefs = getSharedPreferences("com.dtype.writer", MODE_PRIVATE);
-    	SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt("theme", Theme);
-        editor.commit(); // apply changes
-        
-		editor.putBoolean("opt_changed", true);
-        editor.commit(); // apply changes
-        SelectThemeDark (this);
-    }
-    
-    /**
-     * Change font to sans-serif.
-     */
-    public void ChFontSans (View view) {
-    	int Font = 1;
-    	SharedPreferences prefs = getSharedPreferences("com.dtype.writer", MODE_PRIVATE);
-    	SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt("font", Font);
-        editor.commit(); // apply changes
-        
-		editor.putBoolean("opt_changed", true);
-        editor.commit(); // apply changes
-        SelectFontSans (this);
-    }
-    
-    /**
-     * Change font to serif.
-     */
-    public void ChFontSerif (View view) {
-    	int Font = 2;
-    	SharedPreferences prefs = getSharedPreferences("com.dtype.writer", MODE_PRIVATE);
-    	SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt("font", Font);
-        editor.commit(); // apply changes
-        
-		editor.putBoolean("opt_changed", true);
-        editor.commit(); // apply changes
-        SelectFontSerif (this);
-    }
-    
-    /**
-     * Change font to mono.
-     */
-    public void ChFontMono (View view) {
-    	int Font = 3;
-    	SharedPreferences prefs = getSharedPreferences("com.dtype.writer", MODE_PRIVATE);
-    	SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt("font", Font);
-        editor.commit(); // apply changes
-        
-		editor.putBoolean("opt_changed", true);
-        editor.commit(); // apply changes
-        SelectFontMono (this);
-    }
-    
-    /**
-     * Change font size to big.
-     */
-    public void ChSizeSmall (View view) {
-    	int Size = 1;
-    	SharedPreferences prefs = getSharedPreferences("com.dtype.writer", MODE_PRIVATE);
-    	SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt("size", Size);
-        editor.commit(); // apply changes
-        
-		editor.putBoolean("opt_changed", true);
-        editor.commit(); // apply changes
-        SelectSizeSmall (this);
-    }
 
-    /**
-     * Change font size to medium.
-     */
-    public void ChSizeMid (View view) {
-    	int Size = 2;
-    	SharedPreferences prefs = getSharedPreferences("com.dtype.writer", MODE_PRIVATE);
-    	SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt("size", Size);
-        editor.commit(); // apply changes
-        
-		editor.putBoolean("opt_changed", true);
-        editor.commit(); // apply changes
-        SelectSizeMid (this);
-    }
-    
-    /**
-     * Change font size to small.
-     */
-    public void ChSizeBig (View view) {
-    	int Size = 3;
-    	SharedPreferences prefs = getSharedPreferences("com.dtype.writer", MODE_PRIVATE);
-    	SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt("size", Size);
-        editor.commit(); // apply changes
-        
-		editor.putBoolean("opt_changed", true);
-        editor.commit(); // apply changes
-        SelectSizeBig (this);
-    }
-    
+   // public void ChThemeGrey (View view) {
+   // 	int Theme = 1;
+   // 	SharedPreferences prefs = getSharedPreferences("com.dtype.writer", MODE_PRIVATE);
+   // 	SharedPreferences.Editor editor = prefs.edit();
+   //     editor.putInt("theme", Theme);
+   //     editor.commit(); // apply changes
+   //
+   //	editor.putBoolean("opt_changed", true);
+   //     editor.commit(); // apply changes
+   //     SelectThemeGrey (this);
+   // }
+
     /**
      * Clear text.
      */
