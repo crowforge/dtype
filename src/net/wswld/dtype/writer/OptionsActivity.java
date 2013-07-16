@@ -38,43 +38,13 @@ public class OptionsActivity extends DTypeActivity {
 		Size = prefs.getInt("size", Size);
 		
 		/** Selecting theme */
-		switch(Theme){
-		case 1:
-			SelectThemeGrey (this);
-		break;
-		case 2:
-			SelectThemeBlue (this);		
-		break;
-		case 3:
-			SelectThemeDark (this);
-		break;
-		}
+		selectedTheme(Theme, this);
 		
 		/** Selecting font */
-		switch(Font){
-		case 1:
-			SelectFontSans (this);
-		break;
-		case 2:
-			SelectFontSerif (this);		
-		break;
-		case 3:
-			SelectFontMono (this);
-		break;
-		}
+		selectedFont(Font, this);
 		
 		/** Selecting font size */
-		switch(Size){
-		case 1:
-			SelectSizeSmall (this);
-		break;
-		case 2:
-			SelectSizeMid (this);		
-		break;
-		case 3:
-			SelectSizeBig (this);
-		break;
-		}
+		selectedSize(Size, this);
 	};
 	
 	/**
@@ -105,17 +75,16 @@ public class OptionsActivity extends DTypeActivity {
         switch (v.getId()) {
             case (R.id.BtThemeGrey):
                 Theme = 1;
-                SelectThemeGrey(this);
                 break;
             case (R.id.BtThemeBlue):
                 Theme = 2;
-                SelectThemeBlue(this);
                 break;
             case (R.id.BtThemeDark):
                 Theme = 3;
-                SelectThemeDark(this);
                 break;
         }
+
+        selectedTheme(Theme, this);
 
         editor.putInt("theme", Theme);
         editor.putBoolean("opt_changed", true);
@@ -132,17 +101,16 @@ public class OptionsActivity extends DTypeActivity {
         switch (v.getId()) {
             case (R.id.BtFontSans):
                 Font = 1;
-                SelectFontSans(this);
                 break;
             case (R.id.BtFontSerif):
                 Font = 2;
-                SelectFontSerif(this);
                 break;
             case (R.id.BtFontMono):
                 Font = 3;
-                SelectFontMono(this);
                 break;
         }
+
+        selectedFont(Font, this);
 
         editor.putInt("font", Font);
         editor.putBoolean("opt_changed", true);
@@ -171,6 +139,7 @@ public class OptionsActivity extends DTypeActivity {
                 break;
         }
 
+        selectedSize(Size, this);
         editor.putInt("size", Size);
         editor.putBoolean("opt_changed", true);
         editor.commit(); // apply changes
@@ -180,18 +149,6 @@ public class OptionsActivity extends DTypeActivity {
     public void AddBug (View view) {
         goToUrl ( "https://github.com/wswld/dtype/issues/new");
     };
-
-   // public void ChThemeGrey (View view) {
-   // 	int Theme = 1;
-   // 	SharedPreferences prefs = getSharedPreferences("com.dtype.writer", MODE_PRIVATE);
-   // 	SharedPreferences.Editor editor = prefs.edit();
-   //     editor.putInt("theme", Theme);
-   //     editor.commit(); // apply changes
-   //
-   //	editor.putBoolean("opt_changed", true);
-   //     editor.commit(); // apply changes
-   //     SelectThemeGrey (this);
-   // }
 
     /**
      * Clear text.
@@ -215,84 +172,69 @@ public class OptionsActivity extends DTypeActivity {
         Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
         startActivity(launchBrowser);
     }
-    
-    /**
-     * Implementation of selected state on theme buttons. 
-     * @param optionsActivity
-     */
-	public void SelectThemeGrey (OptionsActivity optionsActivity) {
-		final Button BtThemeGrey = (Button) findViewById(R.id.BtThemeGrey);
-		final Button BtThemeBlue = (Button) findViewById(R.id.BtThemeBlue);
-		final Button BtThemeDark = (Button) findViewById(R.id.BtThemeDark);
-		BtThemeGrey.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_selected_layout));
-		BtThemeBlue.setBackgroundDrawable(getResources().getDrawable(R.drawable.blue_button_layout));
-		BtThemeDark.setBackgroundDrawable(getResources().getDrawable(R.drawable.dark_button_layout));
-	}
 
-    /**
-     * Implementation of selected state on theme buttons. 
-     * @param optionsActivity
-     */
-	public void SelectThemeBlue (OptionsActivity optionsActivity) {
-		final Button BtThemeGrey = (Button) findViewById(R.id.BtThemeGrey);
-		final Button BtThemeBlue = (Button) findViewById(R.id.BtThemeBlue);
-		final Button BtThemeDark = (Button) findViewById(R.id.BtThemeDark);
-		BtThemeGrey.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_layout));
-		BtThemeBlue.setBackgroundDrawable(getResources().getDrawable(R.drawable.blue_button_selected_layout));
-		BtThemeDark.setBackgroundDrawable(getResources().getDrawable(R.drawable.dark_button_layout));
-	}
+    public void selectedTheme (int Theme, OptionsActivity optionsActivity) {
+        final Button BtThemeGrey = (Button) findViewById(R.id.BtThemeGrey);
+        final Button BtThemeBlue = (Button) findViewById(R.id.BtThemeBlue);
+        final Button BtThemeDark = (Button) findViewById(R.id.BtThemeDark);
+        BtThemeGrey.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_layout));
+        BtThemeBlue.setBackgroundDrawable(getResources().getDrawable(R.drawable.blue_button_layout));
+        BtThemeDark.setBackgroundDrawable(getResources().getDrawable(R.drawable.dark_button_layout));
 
-    /**
-     * Implementation of selected state on theme buttons. 
-     * @param optionsActivity
-     */
-	public void SelectThemeDark (OptionsActivity optionsActivity) {
-		final Button BtThemeGrey = (Button) findViewById(R.id.BtThemeGrey);
-		final Button BtThemeBlue = (Button) findViewById(R.id.BtThemeBlue);
-		final Button BtThemeDark = (Button) findViewById(R.id.BtThemeDark);
-		BtThemeGrey.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_layout));
-		BtThemeBlue.setBackgroundDrawable(getResources().getDrawable(R.drawable.blue_button_layout));
-		BtThemeDark.setBackgroundDrawable(getResources().getDrawable(R.drawable.dark_button_selected_layout));
-	}
-	
-    /**
-     * Implementation of selected state on theme buttons. 
-     * @param optionsActivity
-     */
-	public void SelectFontSans (OptionsActivity optionsActivity) {
-		final Button BtFontSans = (Button) findViewById(R.id.BtFontSans);
-		final Button BtFontSerif = (Button) findViewById(R.id.BtFontSerif);
-		final Button BtFontMono = (Button) findViewById(R.id.BtFontMono);
-		BtFontSans.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_selected_layout));
-		BtFontSerif.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_layout));
-		BtFontMono.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_layout));
-	}
-	
-    /**
-     * Implementation of selected state on theme buttons. 
-     * @param optionsActivity
-     */
-	public void SelectFontSerif (OptionsActivity optionsActivity) {
-		final Button BtFontSans = (Button) findViewById(R.id.BtFontSans);
-		final Button BtFontSerif = (Button) findViewById(R.id.BtFontSerif);
-		final Button BtFontMono = (Button) findViewById(R.id.BtFontMono);
-		BtFontSans.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_layout));
-		BtFontSerif.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_selected_layout));
-		BtFontMono.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_layout));
-	}
+        switch(Theme) {
+            case(1):
+                BtThemeGrey.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_selected_layout));
+                break;
+            case(2):
+                BtThemeBlue.setBackgroundDrawable(getResources().getDrawable(R.drawable.blue_button_selected_layout));
+                break;
+            case(3):
+                BtThemeDark.setBackgroundDrawable(getResources().getDrawable(R.drawable.dark_button_selected_layout));
+                break;
+        }
+    }
 
-    /**
-     * Implementation of selected state on theme buttons. 
-     * @param optionsActivity
-     */
-	public void SelectFontMono (OptionsActivity optionsActivity) {
-		final Button BtFontSans = (Button) findViewById(R.id.BtFontSans);
-		final Button BtFontSerif = (Button) findViewById(R.id.BtFontSerif);
-		final Button BtFontMono = (Button) findViewById(R.id.BtFontMono);
-		BtFontSans.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_layout));
-		BtFontSerif.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_layout));
-		BtFontMono.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_selected_layout));
-	}
+    public void selectedFont (int Font, OptionsActivity optionsActivity) {
+        final Button BtFontSans = (Button) findViewById(R.id.BtFontSans);
+        final Button BtFontSerif = (Button) findViewById(R.id.BtFontSerif);
+        final Button BtFontMono = (Button) findViewById(R.id.BtFontMono);
+        BtFontSans.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_layout));
+        BtFontSerif.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_layout));
+        BtFontMono.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_layout));
+
+        switch(Font) {
+            case(1):
+                BtFontSans.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_selected_layout));
+                break;
+            case(2):
+                BtFontSerif.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_selected_layout));
+                break;
+            case(3):
+                BtFontMono.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_selected_layout));
+                break;
+        }
+    }
+
+    public void selectedSize (int Size, OptionsActivity optionsActivity) {
+        final Button BtSizeSmall = (Button) findViewById(R.id.BtSizeSmall);
+        final Button BtSizeMid = (Button) findViewById(R.id.BtSizeMid);
+        final Button BtSizeBig = (Button) findViewById(R.id.BtSizeBig);
+        BtSizeSmall.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_layout));
+        BtSizeMid.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_layout));
+        BtSizeBig.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_layout));
+
+        switch(Size) {
+            case(1):
+                BtSizeSmall.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_selected_layout));
+                break;
+            case(2):
+                BtSizeMid.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_selected_layout));
+                break;
+            case(3):
+                BtSizeBig.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_selected_layout));
+                break;
+        }
+    }
 
     /**
      * Implementation of selected state on theme buttons. 
