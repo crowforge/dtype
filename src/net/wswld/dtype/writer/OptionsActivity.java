@@ -11,9 +11,18 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 /**
- * dType Options Screen (opt)
- * @author vsevolod
- * Yes, I know, that this code can be much more compact. I'working on that.
+ * <h1>dType Options Screen</h1>
+ * Options screen is represented by the <code>OptionsActivity</code>. It contains eleven buttons:
+ * <ol>
+ *     <li><code>Clear</code> for clearing the text preserved in the <code>doutput_preserved</code>
+ *     field of the database. Since the <code>EditText</code> field of the
+ *     {@link DTypeActivity dTypeActivity} is overwritten with the
+ *     contents of the <code>doutput_preserved</code> in both
+ *     {@link DTypeActivity#onCreate(android.os.Bundle)} and {@link DTypeActivity#onResume()} - it
+ *     is safe to assume that it is also cleared.</li>
+ *     <li><code>BtThemeGrey</code> changes the theme value in the database, therefore changing the
+ *     color theme of {@link DTypeActivity dTypeActivity}.</li>
+ * </ol>
  */
 public class OptionsActivity extends DTypeActivity {
 	@Override
@@ -127,19 +136,17 @@ public class OptionsActivity extends DTypeActivity {
         switch (v.getId()) {
             case (R.id.BtSizeSmall):
                 Size = 1;
-                SelectSizeSmall(this);
                 break;
             case (R.id.BtSizeMid):
                 Size = 2;
-                SelectSizeMid(this);
                 break;
             case (R.id.BtSizeBig):
                 Size = 3;
-                SelectSizeBig(this);
                 break;
         }
 
         selectedSize(Size, this);
+
         editor.putInt("size", Size);
         editor.putBoolean("opt_changed", true);
         editor.commit(); // apply changes
@@ -236,42 +243,4 @@ public class OptionsActivity extends DTypeActivity {
         }
     }
 
-    /**
-     * Implementation of selected state on theme buttons. 
-     * @param optionsActivity
-     */
-	public void SelectSizeSmall (OptionsActivity optionsActivity) {
-		final Button BtSizeSmall = (Button) findViewById(R.id.BtSizeSmall);
-		final Button BtSizeMid = (Button) findViewById(R.id.BtSizeMid);
-		final Button BtSizeBig = (Button) findViewById(R.id.BtSizeBig);
-		BtSizeSmall.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_selected_layout));
-		BtSizeMid.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_layout));
-		BtSizeBig.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_layout));
-	}
-	
-    /**
-     * Implementation of selected state on theme buttons. 
-     * @param optionsActivity
-     */
-	public void SelectSizeMid (OptionsActivity optionsActivity) {
-		final Button BtSizeSmall = (Button) findViewById(R.id.BtSizeSmall);
-		final Button BtSizeMid = (Button) findViewById(R.id.BtSizeMid);
-		final Button BtSizeBig = (Button) findViewById(R.id.BtSizeBig);
-		BtSizeSmall.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_layout));
-		BtSizeMid.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_selected_layout));
-		BtSizeBig.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_layout));
-	}
-
-    /**
-     * Implementation of selected state on theme buttons. 
-     * @param optionsActivity
-     */
-	public void SelectSizeBig (OptionsActivity optionsActivity) {
-		final Button BtSizeSmall = (Button) findViewById(R.id.BtSizeSmall);
-		final Button BtSizeMid = (Button) findViewById(R.id.BtSizeMid);
-		final Button BtSizeBig = (Button) findViewById(R.id.BtSizeBig);
-		BtSizeSmall.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_layout));
-		BtSizeMid.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_layout));
-		BtSizeBig.setBackgroundDrawable(getResources().getDrawable(R.drawable.grey_button_selected_layout));
-	}
 }
