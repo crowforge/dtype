@@ -24,7 +24,7 @@ import android.widget.Button;
  * <br /><br />
  * Visually, <code>OptionsActivity</code> contains eleven buttons:
  * <ol>
- *     <li><code>Clear</code> calls the {@link #ClearText(View view) ClearText()}.</li>
+ *     <li><code>Clear</code> calls the {@link #clearText(View view) clearText()}.</li>
  *     <li><code>BtThemeGrey</code> calls the {@link #changeTheme(View v) changeTheme()} method.</li>
  *     <li><code>BtThemeBlue</code> calls the {@link #changeTheme(View v) changeTheme()} method.</li>
  *     <li><code>BtThemeDark</code> calls the {@link #changeTheme(View v) changeTheme()} method.</li>
@@ -34,7 +34,7 @@ import android.widget.Button;
  *     <li><code>BtSizeSmall</code> calls the {@link #changeSize(View v) changeSize()} method.</li>
  *     <li><code>BtSizeMid</code> calls the {@link #changeSize(View v) changeSize()} method.</li>
  *     <li><code>BtSizeBig</code> calls the {@link #changeSize(View v) changeSize()} method.</li>
- *     <li><code>ReportBug</code> calls {@link #AddBug(View view) AddBug()} method.</li>
+ *     <li><code>ReportBug</code> calls {@link #addBug(View view) addBug()} method.</li>
  * </ol>
  * Note that {@link #changeTheme(View v) changeTheme()}, {@link #changeFont(View v) changeFont()},
  * {@link #changeSize(View v) changeSize()} are working the same way only for different visual
@@ -48,12 +48,12 @@ import android.widget.Button;
  * {@link #selectedSize(int Size, OptionsActivity optionsActivity) selectedSize()} methods that change visual style of
  * the selected button. I know this is far from ideal, but for now it is the way it is.
  * <br /><br />
- * {@link #ClearText(View view) ClearText()} works in a somehow similar way: it writes a null string to the database
+ * {@link #clearText(View view) clearText()} works in a somehow similar way: it writes a null string to the database
  * along with <code>cleared</code> boolean which then clears the output field in
  * {@link net.wswld.dtype.writer.DTypeActivity}.
  * <br /><br />
- * {@link #AddBug(View view) AddBug()} simply opens the URL of the page for adding a new bug in the default
- * browser. It calls the {@link #goToUrl(String) goToUrl()} method with the URL passed as a string.
+ * {@link #addBug(View view) addBug()} simply opens the URL of the page for adding a new bug in the default
+ * browser. It calls the {@link #gotoURL(String) gotoURL()} method with the URL passed as a string.
  */
 public class OptionsActivity extends DTypeActivity {
     /**
@@ -206,11 +206,11 @@ public class OptionsActivity extends DTypeActivity {
 
     /**
      * This methods opens the URL of the page for adding new bugs to the tracking system in the
-     * default browser by calling {@link #goToUrl(String) goToUrl()} method.
+     * default browser by calling {@link #gotoURL(String) gotoURL()} method.
      * @param view view.
      */
-    public void AddBug (View view) {
-        goToUrl ( "https://github.com/wswld/dtype/issues/new");
+    public void addBug (View view) {
+        gotoURL( "https://github.com/wswld/dtype/issues/new");
     };
 
     /**
@@ -219,7 +219,7 @@ public class OptionsActivity extends DTypeActivity {
      * boolean to notify the {@link DTypeActivity} of the changes.
      * @param view view.
      */
-    public void ClearText(View view) {
+    public void clearText(View view) {
     	SharedPreferences prefs = getSharedPreferences("com.dtype.writer", MODE_PRIVATE);
     	String dOutput = "";
     	SharedPreferences.Editor editor = prefs.edit();
@@ -234,7 +234,7 @@ public class OptionsActivity extends DTypeActivity {
      * Launches the default browser and then opens the passed URL.
      * @param url the URL.
      */
-    private void goToUrl (String url) {
+    private void gotoURL (String url) {
         Uri uriUrl = Uri.parse(url);
         Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
         startActivity(launchBrowser);

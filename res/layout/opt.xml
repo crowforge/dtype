@@ -14,7 +14,7 @@
 		    android:autoLink="web"
 		    android:clickable="true"
 		    android:linksClickable="true"
-		    android:onClick="ClearText"
+		    android:onClick="clearText"
 		    android:text="@string/clear_button" 
 		    android:layout_margin="2.5dp"
 		    android:background="@drawable/grey_button_layout" />
@@ -239,7 +239,7 @@
 		    android:autoLink="web"
 		    android:clickable="true"
 		    android:linksClickable="true"
-		    android:onClick="AddBug"
+		    android:onClick="addBug"
 		    android:text="@string/report" 
 		    android:layout_margin="2.5dp"
 		    android:background="@drawable/grey_button_layout"/>
