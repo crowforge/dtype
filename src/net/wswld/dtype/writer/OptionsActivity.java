@@ -12,57 +12,55 @@ import android.widget.Button;
 
 /**
  * <h1>dType Options Screen</h1>
- * Options screen is represented by the <code>OptionsActivity</code>. Visually, it contains eleven buttons:
+ * Options screen is represented by the <code>OptionsActivity</code>.
+ * {@link #onCreate(android.os.Bundle) onCreate()} method is the generic
+ * Android method and contains all the necessary runtime code. It also assigns
+ * selected buttons on startup, retrieving the values from the database and applying them trough
+ * {@link #selectedTheme(int Theme, OptionsActivity optionsActivity) selectedTheme()},
+ * {@link #selectedFont(int Font, OptionsActivity optionsActivity) selectedFont()} and
+ * {@link #selectedSize(int Size, OptionsActivity optionsActivity) selectedSize()} methods.
+ * {@link #onKeyDown(int, android.view.KeyEvent) onKeyDown()} is also quite usual and it implements exiting the
+ * screen when <code>Back</code> or <code>Menu</code> buttons are pressed.
+ * <br /><br />
+ * Visually, <code>OptionsActivity</code> contains eleven buttons:
  * <ol>
- *     <li><code>Clear</code> for clearing the text preserved in the <code>doutput_preserved</code>
- *     field of the database. Since the <code>EditText</code> field of the
- *     {@link DTypeActivity dTypeActivity} is overwritten with the
- *     contents of the <code>doutput_preserved</code> in both
- *     {@link DTypeActivity#onCreate(android.os.Bundle)} and {@link DTypeActivity#onResume()} - it
- *     is safe to assume that it is also cleared.</li>
- *     <li><code>BtThemeGrey</code> calls the {@link #changeTheme(View v)} method, which changes the theme value in 
- *     the database, therefore changing the color theme of {@link DTypeActivity dTypeActivity}.</li>
- *     <li><code>BtThemeBlue</code> calls the {@link #changeTheme(View v)} method, which changes the theme value in 
- *     the database, therefore changing the theme value in the database, therefore changing the
- *     color theme of {@link DTypeActivity dTypeActivity}.</li>
- *     <li><code>BtThemeDark</code> calls the {@link #changeTheme(View v)} method, which changes the theme value in 
- *     the database, therefore changing the theme value in the database, therefore changing the
- *     color theme of {@link DTypeActivity dTypeActivity}.</li>
- *     <li><code>BtFontSans</code> calls the {@link #changeFont(View v)} method, which changes the theme value in 
- *     the database, therefore changing the font value in the database, therefore changing the
- *     typeface of {@link DTypeActivity dTypeActivity}.</li>
- *     <li><code>BtFontSerif</code> calls the {@link #changeFont(View v)} method, which changes the theme value in 
- *     the database, therefore changing the font value in the database, therefore changing the
- *     typeface of {@link DTypeActivity dTypeActivity}.</li>
- *     <li><code>BtFontMono</code> calls the {@link #changeFont(View v)} method, which changes the theme value in 
- *     the database, therefore changing the font value in the database, therefore changing the
- *     typeface of {@link DTypeActivity dTypeActivity}.</li>
- *     <li><code>BtSizeSmall</code> calls the {@link #changeSize(View v)} method, which changes the theme value in 
- *     the database, therefore changing the size value in the database, therefore changing the
- *     text size of {@link DTypeActivity dTypeActivity}.</li>
- *     <li><code>BtSizeMid</code> calls the {@link #changeSize(View v)} method, which changes the theme value in 
- *     the database, therefore changing the size value in the database, therefore changing the
- *     text size of {@link DTypeActivity dTypeActivity}.</li>
- *     <li><code>BtSizeBig</code> calls the {@link #changeSize(View v)} method, which changes the theme value in 
- *     the database, therefore changing the size value in the database, therefore changing the
- *     text size of {@link DTypeActivity dTypeActivity}.</li>
- *     <li><code>ReportBug</code> calls {@link #AddBug (View view)} method, which opens URL of a "Report a Bug" page in 
- *     browser.</li>
+ *     <li><code>Clear</code> calls the {@link #ClearText(View view) ClearText()}.</li>
+ *     <li><code>BtThemeGrey</code> calls the {@link #changeTheme(View v) changeTheme()} method.</li>
+ *     <li><code>BtThemeBlue</code> calls the {@link #changeTheme(View v) changeTheme()} method.</li>
+ *     <li><code>BtThemeDark</code> calls the {@link #changeTheme(View v) changeTheme()} method.</li>
+ *     <li><code>BtFontSans</code> calls the {@link #changeFont(View v) changeFont()} method.</li>
+ *     <li><code>BtFontSerif</code> calls the {@link #changeFont(View v) changeFont()} method.</li>
+ *     <li><code>BtFontMono</code> calls the {@link #changeFont(View v) changeFont()} method.</li>
+ *     <li><code>BtSizeSmall</code> calls the {@link #changeSize(View v) changeSize()} method.</li>
+ *     <li><code>BtSizeMid</code> calls the {@link #changeSize(View v) changeSize()} method.</li>
+ *     <li><code>BtSizeBig</code> calls the {@link #changeSize(View v) changeSize()} method.</li>
+ *     <li><code>ReportBug</code> calls {@link #AddBug(View view) AddBug()} method.</li>
  * </ol>
- * There are also a couple of methods not really paired with any of the buttons, such as:
- * <ol>
- * <li>{@link #OnKeyDown(int keyCode, KeyEvent event)} override, that implements exiting the options screen on 
- * <code>Menu</code> or <code>Back</code> button pressed. Pretty standard.</li>
- * <li>{@link #selectedTheme (int Theme, OptionsActivity optionsActivity)} that applies special visual style to the 
- * active theme button.</li>
- * <li>{@link #selectedFont (int Theme, OptionsActivity optionsActivity)} that applies special visual style to the 
- * active font button.</li>
- * <li>{@link #selectedSize (int Theme, OptionsActivity optionsActivity)} that applies special visual style to the 
- * active size button.</li>
- * </ol>
+ * Note that {@link #changeTheme(View v) changeTheme()}, {@link #changeFont(View v) changeFont()},
+ * {@link #changeSize(View v) changeSize()} are working the same way only for different visual
+ * style variables (i.e. Theme, Size, Font): they implement a switch for one of the three buttons
+ * in the row pressed, and writes the corresponding value to the database. It also writes an
+ * <code>opt_changed</code> parameter, that when revealed by
+ * {@link net.wswld.dtype.writer.DTypeActivity} works as a signal, that the visual parameters
+ * should be renewed, based on the database values. These methods also call the corresponding
+ * {@link #selectedTheme(int Theme, OptionsActivity optionsActivity) selectedTheme()},
+ * {@link #selectedFont(int Font, OptionsActivity optionsActivity) selectedFont()} or
+ * {@link #selectedSize(int Size, OptionsActivity optionsActivity) selectedSize()} methods that change visual style of
+ * the selected button. I know this is far from ideal, but for now it is the way it is.
+ * <br /><br />
+ * {@link #ClearText(View view) ClearText()} works in a somehow similar way: it writes a null string to the database
+ * along with <code>cleared</code> boolean which then clears the output field in
+ * {@link net.wswld.dtype.writer.DTypeActivity}.
+ * <br /><br />
+ * {@link #AddBug(View view) AddBug()} simply opens the URL of the page for adding a new bug in the default
+ * browser. It calls the {@link #goToUrl(String) goToUrl()} method with the URL passed as a string.
  */
 public class OptionsActivity extends DTypeActivity {
-	@Override
+    /**
+     * Generic Android <code>onCreate</code> method.
+     * @param savedInstanceState
+     */
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.opt);
@@ -90,10 +88,14 @@ public class OptionsActivity extends DTypeActivity {
 		// Selecting font size
 		selectedSize(Size, this);
 	};
-	
-	/**
-	 * On key down events.
-	 */
+
+    /**
+     * This method predictably handles the hardware key events. More particularly it handles exiting
+     * on <code>Menu</code> or <code>Back</code> buttons pressed.
+     * @param keyCode key code.
+     * @param event key event.
+     * @return
+     */
 	@Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 		
@@ -109,6 +111,11 @@ public class OptionsActivity extends DTypeActivity {
         return true;
     }
 
+    /**
+     * This method changes the <code>int</code> value in the database, representing the color theme
+     * of the {@link net.wswld.dtype.writer.DTypeActivity}.
+     * @param v view.
+     */
     public void changeTheme(View v) {
 
         SharedPreferences prefs = getSharedPreferences("com.dtype.writer", MODE_PRIVATE);
@@ -135,6 +142,11 @@ public class OptionsActivity extends DTypeActivity {
         editor.commit(); // apply changes
     }
 
+    /**
+     * This method changes the <code>int</code> value in the database, representing the main font
+     * of the {@link net.wswld.dtype.writer.DTypeActivity}.
+     * @param v view.
+     */
     public void changeFont(View v) {
 
         SharedPreferences prefs = getSharedPreferences("com.dtype.writer", MODE_PRIVATE);
@@ -161,6 +173,11 @@ public class OptionsActivity extends DTypeActivity {
         editor.commit(); // apply changes
     }
 
+    /**
+     * This method changes the <code>int</code> value in the database, representing the font size
+     * of the {@link net.wswld.dtype.writer.DTypeActivity}.
+     * @param v view.
+     */
     public void changeSize(View v) {
 
         SharedPreferences prefs = getSharedPreferences("com.dtype.writer", MODE_PRIVATE);
@@ -187,15 +204,22 @@ public class OptionsActivity extends DTypeActivity {
         editor.commit(); // apply changes
     }
 
-	/** Going to the AddBug page*/
+    /**
+     * This methods opens the URL of the page for adding new bugs to the tracking system in the
+     * default browser by calling {@link #goToUrl(String) goToUrl()} method.
+     * @param view view.
+     */
     public void AddBug (View view) {
         goToUrl ( "https://github.com/wswld/dtype/issues/new");
     };
 
     /**
-     * Clear text.
+     * Clears the <code>doutput_preserved</code> string in the database, therefore clearing the
+     * <code>EditText</code> field in {@link DTypeActivity}. It also writes the <code>cleared</code>
+     * boolean to notify the {@link DTypeActivity} of the changes.
+     * @param view view.
      */
-    public void ClearText (View view) {
+    public void ClearText(View view) {
     	SharedPreferences prefs = getSharedPreferences("com.dtype.writer", MODE_PRIVATE);
     	String dOutput = "";
     	SharedPreferences.Editor editor = prefs.edit();
@@ -205,9 +229,10 @@ public class OptionsActivity extends DTypeActivity {
         editor.putBoolean("cleared", true);
         editor.commit(); // apply changes
     }
-    
+
     /**
-     * goToUrl
+     * Launches the default browser and then opens the passed URL.
+     * @param url the URL.
      */
     private void goToUrl (String url) {
         Uri uriUrl = Uri.parse(url);
@@ -215,7 +240,13 @@ public class OptionsActivity extends DTypeActivity {
         startActivity(launchBrowser);
     }
 
-    public void selectedTheme (int Theme, OptionsActivity optionsActivity) {
+    /**
+     * Reapplies normal visual styles to all the buttons in the theme row and then applies the
+     * corresponding distinctive style to the selected button.
+     * @param Theme theme integer.
+     * @param optionsActivity activity.
+     */
+    public void selectedTheme(int Theme, OptionsActivity optionsActivity) {
         final Button BtThemeGrey = (Button) findViewById(R.id.BtThemeGrey);
         final Button BtThemeBlue = (Button) findViewById(R.id.BtThemeBlue);
         final Button BtThemeDark = (Button) findViewById(R.id.BtThemeDark);
@@ -236,7 +267,13 @@ public class OptionsActivity extends DTypeActivity {
         }
     }
 
-    public void selectedFont (int Font, OptionsActivity optionsActivity) {
+    /**
+     * Reapplies normal visual styles to all the buttons in the font row and then applies the
+     * corresponding distinctive style to the selected button.
+     * @param Font font integer.
+     * @param optionsActivity activity.
+     */
+    public void selectedFont(int Font, OptionsActivity optionsActivity) {
         final Button BtFontSans = (Button) findViewById(R.id.BtFontSans);
         final Button BtFontSerif = (Button) findViewById(R.id.BtFontSerif);
         final Button BtFontMono = (Button) findViewById(R.id.BtFontMono);
@@ -257,7 +294,13 @@ public class OptionsActivity extends DTypeActivity {
         }
     }
 
-    public void selectedSize (int Size, OptionsActivity optionsActivity) {
+    /**
+     * Reapplies normal visual styles to all the buttons in the size row and then applies the
+     * corresponding distinctive style to the selected button.
+     * @param Size size integer.
+     * @param optionsActivity activity.
+     */
+    public void selectedSize(int Size, OptionsActivity optionsActivity) {
         final Button BtSizeSmall = (Button) findViewById(R.id.BtSizeSmall);
         final Button BtSizeMid = (Button) findViewById(R.id.BtSizeMid);
         final Button BtSizeBig = (Button) findViewById(R.id.BtSizeBig);
