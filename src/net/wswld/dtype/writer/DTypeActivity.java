@@ -189,8 +189,9 @@ public class DTypeActivity extends Activity {
 			Theme = prefs.getInt("theme", Theme);
 			Font = prefs.getInt("font", Font);
 			Size = prefs.getInt("size", Size);
-			
+
 			setTheme(this, assembleTheme(Theme, Font, Size));
+
 			
 			// Setting opt_changed to false.
 			SharedPreferences.Editor editor = prefs.edit();
@@ -222,12 +223,15 @@ public class DTypeActivity extends Activity {
     	final EditText edit_text = (EditText) findViewById(R.id.editText1);
         final View main_view = (View) findViewById(R.id.mainview);
         final TextView wordCounter = (TextView) findViewById(R.id.counterView);
+
+        if((edit_text != null) && (main_view != null) && (wordCounter != null)){
         main_view.setBackgroundDrawable(getResources().getDrawable(theme.background));
 		edit_text.getBackground().setAlpha(theme.alpha);
 		edit_text.setTextColor(getResources().getColor(theme.color));
 		wordCounter.setTextColor(getResources().getColor(theme.colorShade));
 		edit_text.setTypeface(theme.font);
 		edit_text.setTextSize(theme.size);
+        };
     }
 
     /**
