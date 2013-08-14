@@ -27,7 +27,7 @@ public class IntroSplashActivity extends DTypeActivity {
             public void run() {
                 finish();
             }
-        }, 5000);
+        }, 20000);
         
     }
 	
